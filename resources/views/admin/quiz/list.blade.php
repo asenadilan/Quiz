@@ -24,8 +24,8 @@
                         <td>{{$quiz->status}}</td>
                         <td>{{$quiz->finished_at}}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">+</i></a>
-                            <a href="#" class="btn btn-sm btn-danger">x</i></a>
+                            <a href="{{route("quizzes.edit",$quiz->id)}}" class="btn btn-sm btn-primary">+</i></a>
+                            <a href="{{route("quizzes.destroy",$quiz->id)}}" class="btn btn-sm btn-danger">x</i></a>
                         </td>
                       </tr>
 
