@@ -3,6 +3,25 @@
 
     <div class="card">
         <div class="card-body">
+            <form method="GET">
+                <div class="col-md-2">
+                    <input type="text" value="{{request()->get("title")}}" name="title" placeholder="Quiz Adı" class="form-Control">
+                </div>
+                <div class="col-md-2">
+                    <select name="status"  onchange="this.form.submit()" class="form-Control">
+                        <option >Seciniz</option>
+                        <option @if(request()->get("status")=="draft") selected  @endif value="draft">Taslak</option>
+                        <option @if(request()->get("status")=="passive") selected @endif value="passive">Pasif</option>
+                        <option @if(request()->get("status") =="active") selected @endif value="active">Aktif</option>
+                    </select>
+                </div>
+                @if (request()->get("title") || request()->get("status"))
+                     <div class="col-md-2">
+                    <a href="{{ route('quizzes.index') }}" class="btn btn-sm btn-primary"> Sıfırla</a>
+                </div>
+                @endif
+
+            </form><br>
             <h5 class="card-title">
                 <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> Quiz oluştur</a>
             </h5>
@@ -25,17 +44,18 @@
                             <td>{{ $quiz->title }}</td>
                             <td>
                                 @switch($quiz->status)
-                                    @case("publish") Aktif  @break
-                                    @case("passive") Pasif  @break
-                                    @case("draft") Taslak @break
+                                    @case(" publish") Aktif @break
+                                    @case(" passive") Pasif @break
+                                    @case(" draft") Taslak @break
 
                                 @endswitch
                             </td>
                             <td>{{ $quiz->questions_count }}</td>
                             <td>
-                                <span title="{{$quiz->finished_at}}">
-                                    {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() :"-"}}
-                                    </span></td>
+                                <span title="{{ $quiz->finished_at }}">
+                                    {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-' }}
+                                </span>
+                            </td>
                             <td>
                                 <a href="{{ route('quizzes.edit', $quiz->id) }}"
                                     class="btn btn-sm btn-primary">edit</i></a>
@@ -49,7 +69,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $quizzes->links() }}
+            {{ $quizzes->withQueryString()->links() }}
         </div>
     </div>
 
