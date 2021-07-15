@@ -111,6 +111,6 @@ class QuestionController extends Controller
     public function destroy($quiz_id, $question_id)
     {
         Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->delete();
-        return redirect()->route("questions.index",$quiz_id)->withSeccess("Başarıyla Silindi");
+        return redirect()->route("questions.index",$quiz_id)->withSuccess("Başarıyla Silindi");
     }
 }
