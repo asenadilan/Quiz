@@ -64,7 +64,7 @@ class QuestionController extends Controller
      */
     public function show($quiz_id,$question_id)
     {
-        return $quiz_id." - ".$question_id ;
+        return "show";
     }
 
     /**
@@ -108,8 +108,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($quiz_id, $question_id)
     {
-        //
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->delete();
+        return redirect()->route("questions.index",$quiz_id)->withSeccess("Başarıyla Silindi");
     }
 }
