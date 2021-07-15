@@ -21,11 +21,11 @@ class quizFactory extends Factory
      * @return array
      */
     public function definition()
-    {   DB::table('quizzes')->truncate();
+    {   DB::table('quizzes')->delete();
         return [
             "title" => $this->faker->sentence(rand(3,7)),
             "description" => $this->faker->text(200),
-            
+
         ];
     }
 }

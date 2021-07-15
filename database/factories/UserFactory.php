@@ -25,7 +25,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        DB::table("users")->truncate();
+        DB::table("users")->delete();
         User::insert([
             'name' => "Furkan Gürel" ,
             'email' => "asenadilancamak@gmail.com",
