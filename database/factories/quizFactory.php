@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Quiz;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class quizFactory extends Factory
 {
@@ -21,9 +22,11 @@ class quizFactory extends Factory
      * @return array
      */
     public function definition()
-    {   DB::table('quizzes')->delete();
+    {
+        $title = $this->faker->sentence(rand(3,7));
         return [
-            "title" => $this->faker->sentence(rand(3,7)),
+            "title" => $title,
+            "slug" =>Str::slug($title),
             "description" => $this->faker->text(200),
 
         ];

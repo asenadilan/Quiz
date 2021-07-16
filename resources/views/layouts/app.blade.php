@@ -45,9 +45,9 @@
                         @endforeach
                     </div>
                 @endif
-                @if(session("success"))
+                @if (session('success'))
                     <div class="alert alert-success">
-                        {{session("success")}}
+                        {{ session('success') }}
                     </div>
                 @endif
 
@@ -63,6 +63,12 @@
     @endisset
 
     @livewireScripts
+    @isset($footer)
+        <footer>
+            {{ $footer }}
+        </footer>
+    @endisset
+
 </body>
 
 </html>

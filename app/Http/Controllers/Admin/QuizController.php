@@ -7,6 +7,7 @@ use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use Illuminate\Support\Str;
 
 
 class QuizController extends Controller
@@ -85,7 +86,14 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, "Quiz Bulunamadı");
-        $quiz->update($request->post());
+       // $quiz->update($request->except(["_method","_token"]));
+        Quiz::where("id",$id)->first()->update([
+            "title" =>$request->title,
+            "description" => $request->description,
+            "slug" => Str::slug($request->title),
+            "status" => $request->status,
+            "finished_at"=>$request->finished_at,
+        ]);
         return redirect()->route("quizzes.index")->withSuccess("quiz başarı ile Güncellendi");
     }
 
