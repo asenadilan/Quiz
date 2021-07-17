@@ -13,11 +13,24 @@ class Quiz extends Model
     protected $fillable = ["title", "description", "finished_at", "slug"];
     //protected $guarded = [];
     protected $dates = ["finished_at"];
-    protected $appends = ["details"];
+    protected $appends = ["details","my_rank"];
     use HasFactory;
     use Sluggable;
 
-
+    public function getMyRankAttribute(){
+        $rank=0;
+        foreach($this->results()->orderByDesc("point")->get() as $result)
+        {
+            $rank+=1;
+            if(auth()->user()->id == $result->user_id)
+            {
+                return $rank;
+            }
+        }
+    }
+    public function topTen(){
+        return $this->results()->orderByDesc("point")->take(2);
+    }
     public function getFinishedAtAttiribute($date)
     {
         return $date ? Carbon::parse($date) : null;
