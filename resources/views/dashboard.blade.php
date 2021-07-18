@@ -24,7 +24,16 @@
             </div>
         </div>
         <div class="col-md-4">
-            deneme
+            <ul class="list-group">
+                @foreach ($results as $result)
+                    <a href="{{route("quiz_detail",$result->quiz->slug)}}" class="list-group-item list-group-item-action"><strong> {{ $result->point }}</strong>-
+                        {{ $result->quiz->title }}</a>
+
+                @endforeach
+
+
+            </ul>
+
         </div>
     </div>
 </x-app-layout>

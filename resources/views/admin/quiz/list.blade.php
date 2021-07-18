@@ -44,9 +44,9 @@
                             <td>{{ $quiz->title }}</td>
                             <td>
                                 @switch($quiz->status)
-                                    @case(" publish") Aktif @break
-                                    @case(" passive") Pasif @break
-                                    @case(" draft") Taslak @break
+                                    @case("publish") Aktif @break
+                                    @case("passive") Pasif @break
+                                    @case("draft") Taslak @break
 
                                 @endswitch
                             </td>
@@ -63,6 +63,8 @@
                                     class="btn btn-sm btn-warning">+</i></a>
                                 <a href="{{ route('quizzes.destroy', $quiz->id) }}"
                                     class="btn btn-sm btn-danger">x</i></a>
+                                    <a href="{{ route('quizzes.info', $quiz->id) }}"
+                                    class="btn btn-sm btn-danger">i</i></a>
                             </td>
                         </tr>
 

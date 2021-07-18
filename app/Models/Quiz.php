@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Else_;
 
 class Quiz extends Model
 {
-    protected $fillable = ["title", "description", "finished_at", "slug"];
+    protected $fillable = ["title", "description", "finished_at", "slug", "status"];
     //protected $guarded = [];
     protected $dates = ["finished_at"];
     protected $appends = ["details","my_rank"];

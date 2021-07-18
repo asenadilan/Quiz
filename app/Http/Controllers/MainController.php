@@ -13,8 +13,9 @@ class MainController extends Controller
     public function dashboard()
     {
 
-        $quizzes = Quiz::where("status", "publish")->withCount("questions")->paginate(5);
-        return view("dashboard", compact("quizzes"));
+         $quizzes = Quiz::where("status", "publish")->withCount("questions")->paginate(5);
+        $results= auth()->user()->results;
+        return view("dashboard", compact("quizzes","results"));
     }
     public function quiz_detail($slug)
     {

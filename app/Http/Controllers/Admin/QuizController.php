@@ -61,8 +61,11 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        //
+
+         $quiz = Quiz::whereId($id)->with( "topTen.user","results.user")->withCount("questions")->first() ?? abort(404, "Quiz bulunamadı");
+        return view("admin.quiz_info",compact("quiz"));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -86,14 +89,16 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, "Quiz Bulunamadı");
-       // $quiz->update($request->except(["_method","_token"]));
-        Quiz::where("id",$id)->first()->update([
+        // $quiz->update($request->except(["_method","_token"]));
+
+          Quiz::where("id",$id)->first()->update([
             "title" =>$request->title,
             "description" => $request->description,
             "slug" => Str::slug($request->title),
             "status" => $request->status,
             "finished_at"=>$request->finished_at,
         ]);
+
         return redirect()->route("quizzes.index")->withSuccess("quiz başarı ile Güncellendi");
     }
 
