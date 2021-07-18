@@ -1,18 +1,24 @@
 <x-app-layout>
     <x-slot name="header">{{ $quiz->title }} Sonucu</x-slot>
-
+    <h3>Puanınız: {{$quiz->result->point}}</h3>
     @foreach ($quiz->questions as $question)
 
         <div class="card">
             <div class="card-body">
 
                 <div class="row">
+                    <div>
+                        <strong class="col-md-0"> #{{ $loop->iteration }}
                     @if ($question->correct_answer == $question->my_answer->answer)
                         <div> Doğru </div>
                     @else
                         <div> Yanlış </div>
                     @endif
-                    <strong class="col-md-0"> #{{ $loop->iteration }}</strong>
+                  Doğru cevaplanma oranı:  {{$question->true_percent}}
+                    </strong>
+                    </div>
+
+
                     @if ($question->image)
 
                         <img class="card-img-top-4" src="{{ asset($question->image) }}" style="width: 25%;"
